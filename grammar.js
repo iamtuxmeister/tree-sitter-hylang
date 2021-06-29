@@ -191,14 +191,14 @@ const SYMBOL_BODY =
 
 // XXX: no attempt is made to enforce certain complex things, e.g.
 //
-//        Symbols beginning or ending with ':' are reserved by Clojure.
+//        Symbols beginning or ending with ':' are reserved by HyLang.
 //        A symbol can contain one or more non-repeating ':'s
 const SYMBOL =
       token(seq(SYMBOL_HEAD,
                 repeat(SYMBOL_BODY)));
 
 module.exports = grammar({
-  name: 'clojure',
+  name: 'hylang',
 
   extras: $ =>
     [],
@@ -363,7 +363,7 @@ module.exports = grammar({
 
     splicing_read_cond_lit: $ =>
       // XXX: metadata here doesn't seem to make sense, but the repl
-      //      will accept: [^:x #?@(:clj [[:a]] :cljr [[:b]])]
+      //      will accept: [^:x #?@(:hy [[:a]] :hyr [[:b]])]
       seq(repeat($._metadata_lit),
           field('marker', "#?@"),
           // whitespace possible, but neither comment nor discard

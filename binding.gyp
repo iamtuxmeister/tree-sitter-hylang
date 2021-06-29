@@ -1,7 +1,7 @@
 {
   "targets": [
     {
-      "target_name": "tree_sitter_clojure_binding",
+      "target_name": "tree_sitter_hylang_binding",
       "include_dirs": [
         "<!(node -e \"require('nan')\")",
         "src"

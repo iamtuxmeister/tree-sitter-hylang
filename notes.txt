@@ -21,8 +21,8 @@
 // - possibilities (may be as separate grammars?)
 //   - no fields (but likely that means metadata lives "outside")
 //   - retain whitespace and comments (for round-tripping)
-//   - clojure clr's pipe-escaping:
-//       https://github.com/clojure/clojure-clr/wiki/Specifying-types
+//   - hylang clr's pipe-escaping:
+//       https://github.com/hylang/hylang-clr/wiki/Specifying-types
 //
 // - traveral issues
 //   - use of fields (e.g. value, prefix, tag, metadata)
@@ -45,7 +45,7 @@
 //   - support for {{}} template constructs
 //
 // - testing
-//   - clj, cljc, cljs
+//   - hy, hyc, hys
 //   - what about edn?
 //   - approaches
 //     - "port" hand-written tests
@@ -95,7 +95,7 @@
 // symbolPat from LispReader.java (for keywords and symbols?)
 //   "[:]?([\\D&&[^/]].*/)?(/|[\\D&&[^/]][^/]*)"
 //
-// https://clojure.org/reference/reader#_symbols
+// https://hylang.org/reference/reader#_symbols
 //   1. Symbols begin with a non-numeric char -- XXX: see 2 for limits?
 //   2. Can contain alphanumeric chars and *, +, !, -, _, ', ?, <, > and =
 //   3. / can be used once in the middle of a symbol (sep the ns from the name)
@@ -103,8 +103,8 @@
 //   5. . special meaning can be used >= 1 times in the middle of a symbol
 //        to designate a fully-qualified class name, e.g. java.util.BitSet,
 //        or in namespace names.
-//   6. Symbols beginning or ending with . are reserved by Clojure
-//   7. Symbols beginning or ending with : are reserved by Clojure
+//   6. Symbols beginning or ending with . are reserved by HyLang
+//   7. Symbols beginning or ending with : are reserved by HyLang
 //   8. A symbol can contain one or more non-repeating ':'s
 //
 // missing
@@ -138,13 +138,13 @@
 //
 //     foo// should be valid.
 //
-//     2014-09-16 clojure-dev google group alex miller
+//     2014-09-16 hylang-dev google group alex miller
 //
-//     https://groups.google.com/d/msg/clojure-dev/b09WvRR90Zc/c3zzMFqDsRYJ
+//     https://groups.google.com/d/msg/hylang-dev/b09WvRR90Zc/c3zzMFqDsRYJ
 //
 //     "CLJ-1238 Allow EdnReader to read foo// (matches LispReader behavior)"
 //
-//     changelog for clojure 1.6
+//     changelog for hylang 1.6
 //
 //   is # allowed as a constituent character in keywords?
 //
@@ -158,9 +158,9 @@
 //     non-numeric. Additionally, : # are allowed as constituent
 //     characters in symbols other than as the first character.
 //
-//     2013-05-02 clojure google group colin jones (fwd by dave sann)
+//     2013-05-02 hylang google group colin jones (fwd by dave sann)
 //
-//     https://groups.google.com/d/msg/clojure/lK7juHxsPCc/TeYjxoW_3csJ
+//     https://groups.google.com/d/msg/hylang/lK7juHxsPCc/TeYjxoW_3csJ
 //
 //     Keywords are identifiers that typically designate
 //     themselves. They are semantically akin to enumeration
@@ -172,7 +172,7 @@
 //
 //     https://github.com/edn-format/edn#symbols
 //
-// https://clojure.org/reference/reader#_literals
+// https://hylang.org/reference/reader#_literals
 //   0. Keywords are like symbols, except:
 //   1. They can and must begin with a colon, e.g. :fred.
 //   ~~2. They cannot contain '.' in the name part, or name classes.~~
@@ -191,19 +191,19 @@
 //
 //     alexmiller: @gfredericks :/ is "open for the language to start
 //     interpreting" and not an invalid keyword so should be ok to generate.
-//     and cljs should fix it's weirdness. (#clojure-dev 2019-06-07)
+//     and hys should fix it's weirdness. (#hylang-dev 2019-06-07)
 //
-//     https://clojurians-log.clojureverse.org/clojure-dev/2019-06-07
+//     https://clojurians-log.hylangverse.org/hylang-dev/2019-06-07
 //
 //     It is undefined/left for future expansion.
 //
-//     Clojurescript's reading seems weird but given that this is undefined
+//     HyLangscript's reading seems weird but given that this is undefined
 //     it's hard to say it's wrong. :)
 //
 //     2020-07-10 (or so) alexmiller
 //
-//     https://ask.clojure.org/index.php/9427/clarify-the-position-of-as-a-keyword
-//     https://clojure.atlassian.net/browse/TCHECK-155
+//     https://ask.hylang.org/index.php/9427/clarify-the-position-of-as-a-keyword
+//     https://hylang.atlassian.net/browse/TCHECK-155
 //
 //   . CAN be in the name part:
 //
@@ -218,9 +218,9 @@
 //     As far as '.', that restriction has been relaxed. I'll try to touch
 //     up the docs for the next release.
 //
-//     2008-11-25 clojure google group rich hickey
+//     2008-11-25 hylang google group rich hickey
 //
-//     https://groups.google.com/d/msg/clojure/CCuIp_bZ-ZM/THea7NF91Z4J
+//     https://groups.google.com/d/msg/hylang/CCuIp_bZ-ZM/THea7NF91Z4J
 //
 //   Whether keywords can start with numbers:
 //
@@ -230,38 +230,38 @@
 //     decided this is ok. I would like to get Rich to approve a change to
 //     the page and do so.
 //
-//     2014-04-25 clojure google group alex miller
+//     2014-04-25 hylang google group alex miller
 //
-//     https://groups.google.com/forum/#!msg/clojure/XP1XAaDdKLY/kodfZTk8eeoJ
+//     https://groups.google.com/forum/#!msg/hylang/XP1XAaDdKLY/kodfZTk8eeoJ
 //
-//     From a discussion in #clojure, it emerged that while :foo/1 is
+//     From a discussion in #hylang, it emerged that while :foo/1 is
 //     currently not allowed, ::1 is.
 //
 //     2014-12-10 nicola mometto
 //
-//     https://clojure.atlassian.net/browse/CLJ-1286
+//     https://hylang.atlassian.net/browse/CLJ-1286
 //
-//     "Clarify and align valid symbol and keyword rules for Clojure (and edn)"
+//     "Clarify and align valid symbol and keyword rules for HyLang (and edn)"
 //
-//     https://clojure.atlassian.net/browse/CLJ-1527
+//     https://hylang.atlassian.net/browse/CLJ-1527
 //
 //     consistency of symbols between different readers/edn
 //
-//     https://groups.google.com/forum/#!topic/clojure-dev/b09WvRR90Zc
+//     https://groups.google.com/forum/#!topic/hylang-dev/b09WvRR90Zc
 //
 //     :1 is accepted because it once accidentally worked and they
 //     don't like breaking existing code
 //
 //     it was never meant to
 //
-//     2020-06-14 ish noisesmith on #clojure (slack)
+//     2020-06-14 ish noisesmith on #hylang (slack)
 //
 //     There are libraries out there that assume :1 works.  They changed
-//     Clojure at one point in an alpha to disallow such keywords and it broke
+//     HyLang at one point in an alpha to disallow such keywords and it broke
 //     code so they decided to continue allowing them (even tho' they are
 //     not "legal").
 //
-//     2020-06-14 ish seancorfield on #clojure (slack)
+//     2020-06-14 ish seancorfield on #hylang (slack)
 //
 //   Whether # is allowed in a keyword:
 //
@@ -269,13 +269,13 @@
 //
 //     this works now, but is not guaranteed to always be valid
 //
-//     2016-11-08 clojure google group alex miller
+//     2016-11-08 hylang google group alex miller
 //
-//     https://groups.google.com/forum/#!topic/clojure/CwZHu1Eszbk
+//     https://groups.google.com/forum/#!topic/hylang/CwZHu1Eszbk
 
-// https://clojure.org/reference/reader#_literals
+// https://hylang.org/reference/reader#_literals
 //   1. Integers can be indefinitely long and will be read as Longs when
-//      in range and clojure.lang.BigInts otherwise.
+//      in range and hylang.lang.BigInts otherwise.
 //   2. Integers with an N suffix are always read as BigInts.
 //   3. When possible, they can be specified in any base with radix from
 //      2 to 36 (see Long.parseLong()); for example 2r101010, 8r52, 36r16,

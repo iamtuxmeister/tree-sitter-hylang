@@ -1,11 +1,11 @@
 [package]
-name = "tree-sitter-clojure"
-description = "clojure grammar for the tree-sitter parsing library"
-version = "0.0.8"
-keywords = ["incremental", "parsing", "clojure"]
+name = "tree-sitter-hylang"
+description = "hylang grammar for the tree-sitter parsing library"
+version = "0.0.9"
+keywords = ["incremental", "parsing", "hylang"]
 categories = ["parsing", "text-editors"]
-repository = "https://github.com/sogaiu/tree-sitter-clojure"
-edition = "2018"
+repository = "https://github.com/iamtuxmeister/tree-sitter-hylang"
+edition = "2021"
 
 build = "bindings/rust/build.rs"
 include = [
